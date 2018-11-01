@@ -39,7 +39,9 @@ class Report(models.Model):
         Hunt, related_name="hunt", on_delete=models.CASCADE)
     details = JSONField()
     status = models.CharField(max_length=20, choices=STATUS, blank=True)
-
+    modified = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+    
 
 class UserManager(BaseUserManager):
     def create_user(self, email, eth_address, password=None):
