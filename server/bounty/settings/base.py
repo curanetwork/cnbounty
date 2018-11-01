@@ -46,10 +46,20 @@ INSTALLED_APPS = [
 
     # Third party apps
     'compressor',
+    'rest_framework',
+    'djoser',
 
     # Local apps
     'base',
 ]
+
+AUTH_USER_MODEL = "base.User"
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ),
+}
 
 # https://docs.djangoproject.com/en/2.0/topics/auth/passwords/#using-argon2-with-django
 PASSWORD_HASHERS = [

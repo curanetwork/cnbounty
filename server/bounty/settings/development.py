@@ -27,6 +27,16 @@ CACHES = {
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
+CLIENT_AUTH_BASE = "http://localhost:3000"
+
+DJOSER = {
+    'PASSWORD_RESET_CONFIRM_URL': CLIENT_AUTH_BASE + '/password/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': CLIENT_AUTH_BASE + '/activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': False,
+    'SERIALIZERS': {
+        'user': 'base.serializers.UserSerializer'
+    },
+}
 
 # DJANGO DEBUG TOOLBAR SETTINGS
 # https://django-debug-toolbar.readthedocs.org
@@ -61,6 +71,6 @@ DEBUG_TOOLBAR_PANELS = (
 )
 
 try:
-    from local_settings import * # noqa
+    from .local_settings import * # noqa
 except ImportError:
     pass

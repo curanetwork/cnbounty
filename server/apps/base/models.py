@@ -14,7 +14,7 @@ class Bounty(models.Model):
     start = models.DateTimeField()
     end = models.DateTimeField()
     signup_fields = JSONField()
-    report_form = JSONField()
+    report_fields = JSONField()
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -41,7 +41,7 @@ class Report(models.Model):
     status = models.CharField(max_length=20, choices=STATUS, blank=True)
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
-    
+
 
 class UserManager(BaseUserManager):
     def create_user(self, email, eth_address, password=None):
@@ -72,9 +72,9 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-	username = models.CharField(max_length=50)
+    username = models.CharField(max_length=50, unique=True, editable=False)
     email = models.EmailField(unique=True)
-    eth_address = models.CharField(max_length=42)
+    eth_address = models.CharField(max_length=42, unique=True, editable=False)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)

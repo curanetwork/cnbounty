@@ -41,6 +41,6 @@ STATICFILES_FINDERS = STATICFILES_FINDERS + (
 )
 
 try:
-    from local_settings import * # noqa
+    from .local_settings import * # noqa
 except ImportError:
     pass

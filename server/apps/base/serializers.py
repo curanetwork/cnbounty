@@ -17,6 +17,7 @@ class HuntSerializer(serializers.ModelSerializer):
         model = Hunt
         fields = ('id', 'user', 'bounty', 'num_of_stakes', 'modified',
             'created')
+        read_only_fields = ('num_of_stakes',)
 
 
 class ReportSerializer(serializers.ModelSerializer):
@@ -24,9 +25,7 @@ class ReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = Report
         fields = ('id', 'hunt', 'details', 'status', 'modified', 'created')
-        extra_kwargs = {
-            'details': {'binary': True}
-        }
+        read_only_fields = ('status',)
 
 
 class BountySerializer(serializers.ModelSerializer):
@@ -45,7 +44,3 @@ class BountySerializer(serializers.ModelSerializer):
         model = Bounty
         fields = ('id', 'name', 'details', 'is_ongoing', 'is_ended',
             'signup_fields', 'report_fields', 'modified', 'created')
-        extra_kwargs = {
-            'signup_fields': {'binary': True},
-            'report_fields': {'binary': True}
-        }
