@@ -1,14 +1,25 @@
+from django.db.models import Sum
 from rest_framework import serializers
 
 from .models import Hunt, Bounty, Report, User
 
 
 class UserSerializer(serializers.ModelSerializer):
+    total_stakes = serializers.SerializerMethodField() 
+
+    @classmethod
+    def total_stakes(self, obj):
+        stakes = 0
+        for hunt in obj.hunts.filter(user=obj):
+            stakes += hunt.reports.filter(
+                status='approved').aggregate(
+                stakes=Sum('num_of_stakes'))['stakes'] or 0
+        return stakes
 
     class Meta:
         model = User
         fields = ('id', 'username', 'email', 'eth_address', 'is_active',
-            'modified', 'date_joined')
+            'total_stakes', 'modified', 'date_joined')
 
 
 class HuntSerializer(serializers.ModelSerializer):
@@ -31,6 +42,8 @@ class ReportSerializer(serializers.ModelSerializer):
 class BountySerializer(serializers.ModelSerializer):
     is_ongoing = serializers.SerializerMethodField()
     is_ended = serializers.SerializerMethodField()
+    total_stakes = serializers.SerializerMethodField()
+    num_of_hunts = serializers.SerializerMethodField()    
 
     @classmethod
     def is_ongoing(self, obj):
@@ -40,7 +53,21 @@ class BountySerializer(serializers.ModelSerializer):
     def is_ended(self, obj):
         return obj.end < timezone.now() and not is_ongoing()
 
+    @classmethod
+    def total_stakes(self, obj):
+        stakes = 0
+        for hunt in obj.hunts.all():
+            stakes += hunt.reports.filter(
+                status='approved').aggregate(
+                stakes=Sum('num_of_stakes'))['stakes'] or 0
+        return stakes
+
+    @classmethod
+    def num_of_hunts(self, obj):
+        return obj.hunts.all().count()
+
     class Meta:
         model = Bounty
         fields = ('id', 'name', 'details', 'is_ongoing', 'is_ended',
-            'signup_fields', 'report_fields', 'modified', 'created')
+            'total_stakes', 'num_of_hunts', 'signup_fields', 'report_fields',
+            'modified', 'created')

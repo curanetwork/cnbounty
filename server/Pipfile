@@ -1,12 +1,9 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [packages]
-
 django = ">=2.0.8"
 "argon2-cffi" = "*"
 django-compressor = "*"
@@ -15,9 +12,8 @@ bcrypt = "*"
 djangorestframework = "*"
 djoser = "*"
 djangorestframework-jwt = "*"
-
+voluptuous = "*"
 
 [dev-packages]
-
 django-debug-toolbar = "*"
 coverage = "*"

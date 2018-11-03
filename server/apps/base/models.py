@@ -18,15 +18,21 @@ class Bounty(models.Model):
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        verbose_name_plural = "Bounties"
+
 
 class Hunt(models.Model):
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name="hunts", on_delete=models.CASCADE)
+        settings.AUTH_USER_MODEL, related_name='hunts', on_delete=models.CASCADE)
     bounty = models.ForeignKey(
-        Bounty, related_name="hunts", on_delete=models.CASCADE)
-    num_of_stakes = models.PositiveIntegerField(default=0)
+        Bounty, related_name='hunts', on_delete=models.CASCADE)
+    details = JSONField()
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'bounty')
 
 
 class Report(models.Model):
@@ -36,9 +42,10 @@ class Report(models.Model):
         ('pending', 'pending')
     )
     hunt = models.ForeignKey(
-        Hunt, related_name="hunt", on_delete=models.CASCADE)
+        Hunt, related_name='reports', on_delete=models.CASCADE)
     details = JSONField()
-    status = models.CharField(max_length=20, choices=STATUS, blank=True)
+    num_of_stakes = models.PositiveIntegerField(default=0)
+    status = models.CharField(max_length=20, choices=STATUS, default='pending')
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
