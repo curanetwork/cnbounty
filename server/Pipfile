@@ -13,6 +13,7 @@ djangorestframework = "*"
 djoser = "*"
 djangorestframework-jwt = "*"
 voluptuous = "*"
+django-admin-json-editor = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"

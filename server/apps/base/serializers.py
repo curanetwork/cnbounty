@@ -1,4 +1,5 @@
 from django.db.models import Sum
+from django.utils import timezone
 from rest_framework import serializers
 
 from .models import Hunt, Bounty, Report, User
@@ -7,8 +8,7 @@ from .models import Hunt, Bounty, Report, User
 class UserSerializer(serializers.ModelSerializer):
     total_stakes = serializers.SerializerMethodField() 
 
-    @classmethod
-    def total_stakes(self, obj):
+    def get_total_stakes(self, obj):
         stakes = 0
         for hunt in obj.hunts.filter(user=obj):
             stakes += hunt.reports.filter(
@@ -23,12 +23,12 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class HuntSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Hunt
-        fields = ('id', 'user', 'bounty', 'num_of_stakes', 'modified',
+        fields = ('id', 'user', 'bounty', 'details', 'modified',
             'created')
-        read_only_fields = ('num_of_stakes',)
 
 
 class ReportSerializer(serializers.ModelSerializer):
@@ -45,16 +45,13 @@ class BountySerializer(serializers.ModelSerializer):
     total_stakes = serializers.SerializerMethodField()
     num_of_hunts = serializers.SerializerMethodField()    
 
-    @classmethod
-    def is_ongoing(self, obj):
+    def get_is_ongoing(self, obj):
         return obj.start <= timezone.now() <= obj.end
 
-    @classmethod
-    def is_ended(self, obj):
+    def get_is_ended(self, obj):
         return obj.end < timezone.now() and not is_ongoing()
 
-    @classmethod
-    def total_stakes(self, obj):
+    def get_total_stakes(self, obj):
         stakes = 0
         for hunt in obj.hunts.all():
             stakes += hunt.reports.filter(
@@ -62,12 +59,11 @@ class BountySerializer(serializers.ModelSerializer):
                 stakes=Sum('num_of_stakes'))['stakes'] or 0
         return stakes
 
-    @classmethod
-    def num_of_hunts(self, obj):
+    def get_num_of_hunts(self, obj):
         return obj.hunts.all().count()
 
     class Meta:
         model = Bounty
-        fields = ('id', 'name', 'details', 'is_ongoing', 'is_ended',
-            'total_stakes', 'num_of_hunts', 'signup_fields', 'report_fields',
+        fields = ('id', 'name', 'icon', 'description', 'is_ongoing', 'is_ended',
+            'total_stakes', 'num_of_hunts', 'signup_form', 'report_form',
             'modified', 'created')

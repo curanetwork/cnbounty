@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # Third party apps
     'compressor',
     'rest_framework',
+    'django_admin_json_editor',
     'djoser',
 
     # Local apps

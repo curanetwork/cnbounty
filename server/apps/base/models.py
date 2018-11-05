@@ -10,11 +10,12 @@ from django.core.mail import send_mail
 
 class Bounty(models.Model):
     name = models.CharField(max_length=100)
-    details = models.TextField()
+    icon = models.CharField(max_length=50, default='fa-gift')
+    description = models.TextField()
     start = models.DateTimeField()
     end = models.DateTimeField()
-    signup_fields = JSONField()
-    report_fields = JSONField()
+    signup_form = JSONField()
+    report_form = JSONField()
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -51,21 +52,26 @@ class Report(models.Model):
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, eth_address, password=None):
+    def create_user(self, username, email, eth_address, password=None):
         if not email:
             raise ValueError('You must have an email address')
+
+        if not username:
+            raise ValueError('You must have a username')
 
         user = self.model(
             email=self.normalize_email(email)
         )
 
+        user.username = username
         user.eth_address = eth_address
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, eth_address, password):
+    def create_superuser(self, username, email, eth_address, password):
         user = self.create_user(
+            username,
             email,
             eth_address,
             password=password,
@@ -81,7 +87,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=50, unique=True, editable=False)
     email = models.EmailField(unique=True)
-    eth_address = models.CharField(max_length=42, unique=True, editable=False)
+    eth_address = models.CharField(max_length=44, unique=True, editable=False)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
