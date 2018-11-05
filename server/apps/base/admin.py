@@ -18,8 +18,10 @@ class BountyAdminForm(forms.ModelForm):
         model = Bounty
         fields = '__all__'
         widgets = {
-            'signup_form': JSONEditorWidget({ 'type': 'array' }, collapsed=False),
-            'report_form': JSONEditorWidget({ 'type': 'array' }, collapsed=False)
+            'signup_form': JSONEditorWidget({
+                'type': 'array', 'format': 'table' }, collapsed=False),
+            'report_form': JSONEditorWidget({
+                'type': 'array', 'format': 'table' }, collapsed=False)
         }
 
 

@@ -22,6 +22,9 @@ class Bounty(models.Model):
     class Meta:
         verbose_name_plural = "Bounties"
 
+    def __str__(self):
+        return self.name    
+
 
 class Hunt(models.Model):
     user = models.ForeignKey(
@@ -34,6 +37,9 @@ class Hunt(models.Model):
 
     class Meta:
         unique_together = ('user', 'bounty')
+
+    def __str__(self):
+        return self.email
 
 
 class Report(models.Model):

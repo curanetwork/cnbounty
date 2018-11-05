@@ -4,9 +4,9 @@ API server for Cura Network ICO Bounty.
 
 ## Quickstart ##
 
-Make sure you have [pipenv installed](https://docs.pipenv.org/install.html). Then install Django 2.0 in your virtualenv:
+Make sure you have [pipenv installed](https://docs.pipenv.org/install.html). Then install Django 2.0 or later in your virtualenv:
 
-    pip install django==2.0
+    pip install django>=2.0
 
 Clone this repo
 
