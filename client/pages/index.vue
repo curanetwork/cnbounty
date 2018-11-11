@@ -3,10 +3,10 @@
     <b-jumbotron
       class="py-3"
       bg-variant="white"
-      text-variant="secondary"
+      text-variant="dark"
       border-variant="danger">
       <template slot="header">
-        Cura Network Bounty
+        <span class="display-4">Cura Network Bounty</span>
       </template>
       <template slot="lead">
         Earn generous stakes by carrying out the tasks you love to do. 
@@ -19,11 +19,55 @@
         class="mt-3"
         href="#">Start participating</b-btn>
       <hr class="my-4">
-      <p>
+      <p class="small">
         <b-link href="#">Terms & Conditions</b-link> · 
         <b-link 
-          href="https://curanetwork.co/wp-content/uploads/2018/11/Cura-Network-Whitepaper.pdf" 
+          href="https://curanetwork.co/whitepaper/" 
           target="_blank">Whitepaper
+        </b-link> · 
+        <b-link 
+          href="https://www.youtube.com/watch?v=hEpMtp4gFfU" 
+          target="_blank">Explainer Video
+        </b-link> · 
+        <b-link 
+          href="https://t.me/CuraNetworkPlatform" 
+          target="_blank"> Telegram
+        </b-link> ·  
+        <b-link 
+          href="https://github.com/curanetwork" 
+          target="_blank">Github
+        </b-link> · 
+        <b-link 
+          href="https://web.facebook.com/curanetwork" 
+          target="_blank">Facebook
+        </b-link> · 
+        <b-link 
+          href="https://twitter.com/CuraNetwork" 
+          target="_blank">Twitter
+        </b-link> · 
+        <b-link 
+          href="https://www.youtube.com/channel/UCr4xUHghM8p8fT2oa3Co2Sw" 
+          target="_blank">Youtube
+        </b-link> · 
+        <b-link 
+          href="https://medium.com/@curanetwork" 
+          target="_blank">Medium
+        </b-link> · 
+        <b-link 
+          href="#" 
+          target="_blank">Linkedin
+        </b-link> · 
+        <b-link 
+          href="https://www.instagram.com/curanetwork" 
+          target="_blank">Instagram
+        </b-link> · 
+        <b-link 
+          href="#" 
+          target="_blank">Bitcointalk
+        </b-link> · 
+        <b-link 
+          href="https://www.reddit.com/user/curanetwork" 
+          target="_blank">Reddit
         </b-link>
       </p>
     </b-jumbotron>
@@ -39,73 +83,112 @@
             <b-card-group 
               deck
               class="mb-3">
-              <b-card 
-                bg-variant="primary"
-                text-variant="white"
+              <b-card
+                text-variant="dark"
                 header="Facebook"
+                header-bg-variant="primary"
+                header-text-variant="white"
                 class="text-center">
                 <p class="card-text"><font-awesome-icon :icon="['fab', 'facebook-f']" />Like, share, and post about Cura Network on Facebook.</p>
+                <b-button 
+                  href="#"
+                  variant="outline-primary">Details</b-button>
               </b-card>
-              <b-card 
-                bg-variant="secondary"
-                text-variant="white"
+              <b-card
+                text-variant="dark"
                 header="Bitcointalk Signature"
+                header-bg-variant="secondary"
+                header-text-variant="white"
                 class="text-center">
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <b-button 
+                  href="#"
+                  variant="outline-secondary">Details</b-button>
               </b-card>
               <b-card 
-                bg-variant="success"
-                text-variant="white"
+                text-variant="dark"
                 header="Article/Content"
+                header-bg-variant="success"
+                header-text-variant="white"
                 class="text-center">
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <b-button 
+                  href="#"
+                  variant="outline-success">Details</b-button>
               </b-card>
             </b-card-group>
             <b-card-group 
               deck
               class="mb-3">
               <b-card 
-                bg-variant="info"
-                text-variant="white"
+                text-variant="dark"
                 header="Twitter"
+                header-bg-variant="info"
+                header-text-variant="white"
                 class="text-center">
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <b-button 
+                  href="#"
+                  variant="outline-info">Details</b-button>
               </b-card>
-              <b-card 
-                bg-variant="warning"
-                text-variant="white"
+              <b-card
+                text-variant="dark"
                 header="Translation"
+                header-bg-variant="warning"
+                header-text-variant="dark"
                 class="text-center">
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <b-button 
+                  href="#"
+                  variant="outline-warning">Details</b-button>
               </b-card>
-              <b-card 
-                bg-variant="danger"
-                text-variant="white"
+              <b-card
+                text-variant="dark"
                 header="Youtube"
+                header-bg-variant="danger"
+                header-text-variant="white"
                 class="text-center">
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <b-button 
+                  href="#"
+                  variant="outline-danger">Details</b-button>
               </b-card>
             </b-card-group>
             <b-card-group 
               deck
               class="mb-3">
               <b-card 
-                bg-variant="light"
+                text-variant="dark"
                 header="Reddit"
+                header-bg-variant="dark"
+                header-text-variant="white"
                 class="text-center">
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <b-button 
+                  href="#"
+                  variant="outline-dark">Details</b-button>
               </b-card>
               <b-card 
-                bg-variant="dark"
+                text-variant="dark"
                 header="Instagram"
-                text-variant="white"
+                header-bg-variant="dark"
+                header-text-variant="white"
                 class="text-center">
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <b-button 
+                  href="#"
+                  variant="outline-dark">Details</b-button>
               </b-card>
-              <b-card 
+              <b-card
+                text-variant="dark"
                 header="Telegram"
+                header-bg-variant="primary"
+                header-text-variant="white"
                 class="text-center">
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <b-button 
+                  href="#"
+                  variant="outline-primary">Details</b-button>
               </b-card>
             </b-card-group>
           </div>
@@ -131,12 +214,7 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
 export default {
-  components: {
-    Logo
-  },
   data: () => ({
     fields: ['first_name', 'last_name', 'age'],
     items: [
