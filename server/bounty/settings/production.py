@@ -16,6 +16,14 @@ DATABASES = {
     },
 }
 
+CORS_ORIGIN_WHITELIST = (
+    'bounty.curanetwork.co',
+)
+
+CSRF_TRUSTED_ORIGINS = (
+    'bounty.curanetwork.co',
+)
+
 # IMPORTANT!:
 # You must keep this secret, you can store it in an
 # environment variable and set it with:
@@ -36,9 +44,9 @@ ADMINS = (
 MANAGERS = ADMINS
 
 # DJANGO-COMPRESSOR SETTINGS
-STATICFILES_FINDERS = STATICFILES_FINDERS + (
-    'compressor.finders.CompressorFinder',
-)
+#STATICFILES_FINDERS = STATICFILES_FINDERS + (
+#    'compressor.finders.CompressorFinder',
+#)
 
 try:
     from .local_settings import * # noqa

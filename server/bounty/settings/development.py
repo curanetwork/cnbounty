@@ -27,6 +27,14 @@ CACHES = {
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
+CORS_ORIGIN_WHITELIST = (
+    'localhost',
+)
+
+CSRF_TRUSTED_ORIGINS = (
+    'localhost',
+)
+
 CLIENT_AUTH_BASE = "http://localhost:3000"
 
 DJOSER = {

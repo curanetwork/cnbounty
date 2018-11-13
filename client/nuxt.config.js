@@ -1,4 +1,6 @@
+import webpack from 'webpack'
 const pkg = require('./package')
+require('dotenv').config()
 
 module.exports = {
   mode: 'spa',
@@ -37,15 +39,59 @@ module.exports = {
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
+    // Doc: https://auth.nuxtjs.org/
+    '@nuxtjs/auth',
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
     'nuxt-fontawesome'
   ],
+
   /*
   ** Axios module configuration
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    https: false,
+    baseURL: process.env.BASE_URL,
+    //credentials: true,
+    retry: { retries: 3 }
+  },
+
+  /*
+  ** Authentication module configuration
+  */
+  auth: {
+    // See https://auth.nuxtjs.org/
+    redirect: {
+      login: '/',
+      logout: '/',
+      home: '/in',
+      callback: false,
+      user: '/profile'
+    },
+    cookie: {
+      options: {
+        secure: false
+      }
+    },
+    resetOnError: false,
+    fullPathRedirect: true,
+    scopeKey: 'roles',
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/auth/jwt/create',
+            method: 'post',
+            propertyName: 'token'
+          },
+          logout: false,
+          user: { url: '/auth/me', method: 'get', propertyName: '' }
+        },
+        tokenRequired: true,
+        tokenType: 'Bearer'
+      }
+    }
   },
 
   /*
@@ -65,6 +111,12 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
-    }
+    },
+    plugins: [
+      new webpack.ProvidePlugin({
+        _: 'lodash'
+        // ...etc.
+      })
+    ]
   }
 }

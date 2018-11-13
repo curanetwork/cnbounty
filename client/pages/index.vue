@@ -17,7 +17,8 @@
         variant="primary"
         size="lg"
         class="mt-3"
-        href="#">Start participating</b-btn>
+        href="#"
+        @click="modal('signup')">Start participating</b-btn>
       <hr class="my-4">
       <p class="small">
         <b-link href="#">Terms & Conditions</b-link> · 
@@ -210,12 +211,119 @@
         </b-tab>
       </b-tabs>
     </b-card>
+    <!-- Modal Component -->
+    <b-modal 
+      id="auth" 
+      :title="auth.title" 
+      :ok-title="auth.action"
+      centered
+      ok-variant="danger"
+      ok-only
+      @ok="handleAuthForm">
+      <b-form>
+        <div v-if="auth.form === 'login'">
+          <b-form-group>
+            <b-form-input 
+              id="login-user"
+              v-model="auth.data.username"
+              type="text"
+              placeholder="Enter username"/>
+          </b-form-group>
+          <b-form-group>
+            <b-form-input 
+              id="login-pass"
+              v-model="auth.data.password1"
+              type="password"
+              placeholder="**********"/>
+          </b-form-group>
+          <b-link 
+            class="text-danger" 
+            @click="modal('forgot')"><small>Forgot your password?</small></b-link> | 
+          <b-link 
+            class="text-danger" 
+            @click="modal('signup')"><small>Create an account</small></b-link>
+        </div>
+        <div v-if="auth.form === 'forgot'">
+          <b-form-group>
+            <b-form-input 
+              id="forgot-email"
+              v-model="auth.data.email"
+              type="text"
+              placeholder="Enter your email"/>
+          </b-form-group>
+          <b-link 
+            class="text-danger" 
+            @click="modal('login')"><small>I already have an account</small></b-link>
+        </div>
+        <div v-if="auth.form === 'signup'">
+          <p>
+            <b-link
+              href="https://t.me/CuraNetworkBounty"
+              target="_blank"
+            >Click here</b-link> to join the bounty Telegram group
+          </p>
+          <b-form-group>
+            <b-form-input 
+              id="signup-user"
+              v-model="auth.data.username"
+              type="text"
+              placeholder="Enter Telegram username"/>
+          </b-form-group>
+          <b-form-group>
+            <b-form-input 
+              id="signup-email"
+              v-model="auth.data.email"
+              type="email"
+              placeholder="Enter email"/>
+          </b-form-group>
+          <b-form-group
+            description="CAUTION: This cannot be changed. All tokens will be sent to this address during token distribution">
+            <b-form-input 
+              id="signup-eth-address"
+              v-model="auth.data.ethAddress"
+              type="text"
+              placeholder="Enter Ethereum Address"/>
+          </b-form-group>
+          <b-form-group
+            description="Password">
+            <b-form-input 
+              id="signup-pass"
+              v-model="auth.data.password1"
+              type="password"
+              placeholder="**********"/>
+          </b-form-group>
+          <b-form-group
+            description="Retype password">
+            <b-form-input 
+              id="login-pass"
+              v-model="auth.data.password2"
+              type="password"
+              placeholder="**********"/>
+          </b-form-group>
+          <b-link 
+            class="text-danger" 
+            @click="modal('login')"><small>I already have an account</small></b-link>
+        </div>
+      </b-form>
+    </b-modal>
   </section>
 </template>
 
 <script>
 export default {
   data: () => ({
+    auth: {
+      form: 'login',
+      title: 'Log in',
+      action: 'Log in',
+      data: {
+        username: '',
+        email: '',
+        ethAddress: '',
+        password1: '',
+        password2: ''
+      }
+    },
     fields: ['first_name', 'last_name', 'age'],
     items: [
       {
@@ -228,7 +336,32 @@ export default {
       { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
       { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
     ]
-  })
+  }),
+  methods: {
+    modal(form) {
+      switch (form) {
+        case 'login':
+          this.auth.form = form
+          this.auth.title = 'Log in'
+          this.auth.action = 'Log in'
+          break
+        case 'signup':
+          this.auth.form = form
+          this.auth.title = 'Create an account'
+          this.auth.action = 'Submit'
+          break
+        case 'forgot':
+          this.auth.form = form
+          this.auth.title = 'Reset password'
+          this.auth.action = 'Send me password reset link'
+          break
+      }
+    },
+
+    handleAuthForm(evt) {
+      alert(evt)
+    }
+  }
 }
 </script>
 
