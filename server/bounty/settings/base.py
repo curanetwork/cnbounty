@@ -155,11 +155,25 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'corsheaders.middleware.CorsPostCsrfMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# CORS (Cross-Origin Resource Sharing)
+# https://pypi.org/project/django-cors-headers/
+CORS_ORIGIN_WHITELIST = (
+    'bounty.curanetwork.co',
+    'localhost:3000'
+)
+
+from corsheaders.defaults import default_headers
+from corsheaders.defaults import default_methods
+
+CORS_ALLOW_METHODS = default_methods
+CORS_ALLOW_HEADERS = default_headers
+
+CORS_ALLOW_CREDENTIALS = True
 
 # LOGGING
 # https://docs.djangoproject.com/en/2.0/topics/logging/

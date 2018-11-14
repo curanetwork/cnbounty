@@ -91,9 +91,9 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(max_length=50, unique=True, editable=False)
+    username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(unique=True)
-    eth_address = models.CharField(max_length=44, unique=True, editable=False)
+    eth_address = models.CharField(max_length=44, unique=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)

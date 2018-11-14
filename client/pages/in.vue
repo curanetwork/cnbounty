@@ -5,22 +5,26 @@
         <b-col>
           <p>Email:
             <b-form-input
+              :value="$auth.user.email"
               type="text"
-              disabled
-              value="jeffjens@gmail.com"/></p>
+              disabled/></p>
           <p>Ethereum address:    
             <b-form-input
+              :value="$auth.user.eth_address"
               type="text"
-              disabled
-              value="0xf4c5c4deDde7A86b25E7430796441e209e23eBFB"/>
+              disabled/>
           </p>
         </b-col>
         <b-col class="text-right">
-          <p><span class="display-1 text-danger">259</span><br><span>stakes won</span></p>
+          <p><span class="display-1 text-danger">{{ $auth.user.total_stakes }}</span><br><span>stakes won</span></p>
         </b-col>
       </b-row>
     </b-container>
     <div class="mt-3">
+      <b-btn 
+        :to="{ name: 'index' }"
+        class="float-right" 
+        variant="primary">View all bounties</b-btn>
       <b-tabs 
         class="mt-3"
         variant="danger"
@@ -44,7 +48,7 @@
                 Facebook
                 <span class="float-right badge pill badge-light text-primary">23 stakes</span>
               </template>
-              <p class="card-text"><font-awesome-icon :icon="['fab', 'facebook-f']" />Like, share, and post about Cura Network on Facebook.</p>
+              <p class="card-text">Like, share, and post about Cura Network on Facebook.</p>
               <b-button-group>
                 <b-button 
                   href="#"
@@ -162,6 +166,7 @@
 
 <script>
 export default {
+  middleware: 'auth',
   data: () => ({
     report: {
       title: 'Facebook',

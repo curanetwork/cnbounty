@@ -50,12 +50,12 @@
           <b-nav-item 
             v-if="$auth.loggedIn"
             :to="{ name: 'in'
-          }">@jeffjenkins</b-nav-item>
+          }">@{{ $auth.user.username }}</b-nav-item>
 
           <b-nav-item 
             v-if="$auth.loggedIn" 
             href="#" 
-            @click="$auth.logout">Log out</b-nav-item>
+            @click="$auth.logout()">Log out</b-nav-item>
         </b-navbar-nav>
 
       </b-collapse>

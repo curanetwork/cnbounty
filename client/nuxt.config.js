@@ -41,6 +41,12 @@ module.exports = {
     '@nuxtjs/axios',
     // Doc: https://auth.nuxtjs.org/
     '@nuxtjs/auth',
+    [
+      'nuxt-validate',
+      {
+        locale: 'en'
+      }
+    ],
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
     'nuxt-fontawesome'
@@ -53,7 +59,7 @@ module.exports = {
     // See https://github.com/nuxt-community/axios-module#options
     https: false,
     baseURL: process.env.BASE_URL,
-    //credentials: true,
+    credentials: true,
     retry: { retries: 3 }
   },
 
@@ -89,7 +95,7 @@ module.exports = {
           user: { url: '/auth/me', method: 'get', propertyName: '' }
         },
         tokenRequired: true,
-        tokenType: 'Bearer'
+        tokenType: 'JWT'
       }
     }
   },
