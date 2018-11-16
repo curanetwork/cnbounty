@@ -2,15 +2,19 @@
 
 from django.db import models
 from django.conf import settings
-from django.contrib.postgres.fields import ArrayField, JSONField
+from django.contrib.postgres.fields import JSONField
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser, PermissionsMixin)
 from django.core.mail import send_mail
+from django.utils.text import slugify
 
 
 class Bounty(models.Model):
     name = models.CharField(max_length=100)
+    percent_share = models.FloatField()
+    slug = models.SlugField(unique=True)
     icon = models.CharField(max_length=50, default='fa-gift')
+    intro = models.CharField(max_length=60)
     description = models.TextField()
     start = models.DateTimeField()
     end = models.DateTimeField()
@@ -24,6 +28,10 @@ class Bounty(models.Model):
 
     def __str__(self):
         return self.name    
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Bounty, self).save(*args, **kwargs)
 
 
 class Hunt(models.Model):
@@ -39,7 +47,7 @@ class Hunt(models.Model):
         unique_together = ('user', 'bounty')
 
     def __str__(self):
-        return self.email
+        return self.user.email
 
 
 class Report(models.Model):

@@ -28,7 +28,7 @@ class BountyAdminForm(forms.ModelForm):
 @admin.register(Bounty)
 class BountyAdmin(admin.ModelAdmin):
     form = BountyAdminForm
-    list_display = ('name', 'description', 'start', 'end', 'signup_form',
+    list_display = ('name', 'percent_share', 'intro', 'start', 'end', 'signup_form',
     	'report_form', 'modified', 'created')
     list_filter = ('modified', 'created',)
     search_fields = ('name',)

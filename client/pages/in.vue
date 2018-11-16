@@ -49,16 +49,14 @@
                 <span class="float-right badge pill badge-light text-primary">23 stakes</span>
               </template>
               <p class="card-text">Like, share, and post about Cura Network on Facebook.</p>
-              <b-button-group>
-                <b-button 
-                  href="#"
-                  variant="outline-primary">Details</b-button>
-                <b-button 
-                  v-b-modal.report
-                  href="#"
-                  variant="outline-primary"
-                  @click="report.title = 'Facebook'">Submit report</b-button>
-              </b-button-group>
+              <b-button 
+                href="#"
+                variant="outline-primary">Details</b-button>
+              <b-button 
+                v-b-modal.report
+                href="#"
+                variant="outline-primary"
+                @click="report.title = 'Facebook'">Submit report</b-button>
             </b-card>
             <b-card
               text-variant="dark"
@@ -67,14 +65,12 @@
               header-text-variant="white"
               class="text-center">
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <b-button-group>
-                <b-button 
-                  href="#"
-                  variant="outline-secondary">Details</b-button>
-                <b-button 
-                  href="#"
-                  variant="outline-secondary">Submit report</b-button>
-              </b-button-group>
+              <b-button 
+                href="#"
+                variant="outline-secondary">Details</b-button>
+              <b-button 
+                href="#"
+                variant="outline-secondary">Submit report</b-button>
             </b-card>
             <b-card 
               text-variant="dark"
@@ -83,14 +79,12 @@
               header-text-variant="white"
               class="text-center">
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <b-button-group>
-                <b-button 
-                  href="#"
-                  variant="outline-success">Details</b-button>
-                <b-button 
-                  href="#"
-                  variant="outline-success">Submit report</b-button>
-              </b-button-group>
+              <b-button 
+                href="#"
+                variant="outline-success">Details</b-button>
+              <b-button 
+                href="#"
+                variant="outline-success">Submit report</b-button>
             </b-card>
           </b-card-group>
           <b-card-group 
@@ -103,14 +97,12 @@
               header-text-variant="white"
               class="text-center">
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <b-button-group>
-                <b-button 
-                  href="#"
-                  variant="outline-info">Details</b-button>
-                <b-button 
-                  href="#"
-                  variant="outline-info">Submit report</b-button>
-              </b-button-group>
+              <b-button 
+                href="#"
+                variant="outline-info">Details</b-button>
+              <b-button 
+                href="#"
+                variant="outline-info">Submit report</b-button>
             </b-card>
             <b-card
               text-variant="dark"
@@ -119,14 +111,12 @@
               header-text-variant="dark"
               class="text-center">
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <b-button-group>
-                <b-button 
-                  href="#"
-                  variant="outline-warning">Details</b-button>
-                <b-button 
-                  href="#"
-                  variant="outline-warning">Submit report</b-button>
-              </b-button-group>
+              <b-button 
+                href="#"
+                variant="outline-warning">Details</b-button>
+              <b-button 
+                href="#"
+                variant="outline-warning">Submit report</b-button>
             </b-card>
           </b-card-group>
         </b-tab>
@@ -168,6 +158,7 @@
 export default {
   middleware: 'auth',
   data: () => ({
+    hunts: [],
     report: {
       title: 'Facebook',
       fields: []
@@ -193,7 +184,14 @@ export default {
         status: 'approved'
       }
     ]
-  })
+  }),
+
+  async created() {
+    try {
+      this.hunts = _.chunk(await this.$axios.$get('/hunts'), 3)
+      console.log(this.hunts)
+    } catch (e) {}
+  }
 }
 </script>
 

@@ -24,6 +24,7 @@ class BountyViewSet(viewsets.ReadOnlyModelViewSet):
     """
     queryset = Bounty.objects.all()
     serializer_class = BountySerializer
+    lookup_field = 'slug'
 
 
 class ReportViewSet(viewsets.ModelViewSet):

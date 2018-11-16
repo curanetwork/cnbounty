@@ -22,15 +22,6 @@ class UserSerializer(serializers.ModelSerializer):
             'total_stakes', 'modified', 'date_joined')
 
 
-class HuntSerializer(serializers.ModelSerializer):
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-
-    class Meta:
-        model = Hunt
-        fields = ('id', 'user', 'bounty', 'details', 'modified',
-            'created')
-
-
 class ReportSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -43,7 +34,8 @@ class BountySerializer(serializers.ModelSerializer):
     is_ongoing = serializers.SerializerMethodField()
     is_ended = serializers.SerializerMethodField()
     total_stakes = serializers.SerializerMethodField()
-    num_of_hunts = serializers.SerializerMethodField()    
+    num_of_hunts = serializers.SerializerMethodField() 
+    num_of_reports = serializers.SerializerMethodField() 
 
     def get_is_ongoing(self, obj):
         return obj.start <= timezone.now() <= obj.end
@@ -62,8 +54,29 @@ class BountySerializer(serializers.ModelSerializer):
     def get_num_of_hunts(self, obj):
         return obj.hunts.all().count()
 
+    def get_num_of_reports(self, obj):
+        return Report.objects.filter(hunt__bounty=obj).count()
+
     class Meta:
         model = Bounty
-        fields = ('id', 'name', 'icon', 'description', 'is_ongoing', 'is_ended',
-            'total_stakes', 'num_of_hunts', 'signup_form', 'report_form',
+        fields = ('id', 'name', 'slug', 'percent_share', 'icon', 'intro', 'description', 'is_ongoing', 'is_ended',
+            'total_stakes', 'num_of_hunts', 'num_of_reports', 'signup_form', 'report_form',
             'modified', 'created')
+
+
+class HuntSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    bounty = BountySerializer()
+    num_of_stakes = serializers.SerializerMethodField() 
+
+    def get_num_of_stakes(self, obj):
+        stakes = obj.reports.filter(
+            status='approved').aggregate(
+            stakes=Sum('num_of_stakes'))['stakes'] or 0
+        return stakes
+
+    class Meta:
+        model = Hunt
+        fields = ('id', 'user', 'bounty', 'num_of_stakes', 'details', 'modified',
+            'created')
+        depth = 1
