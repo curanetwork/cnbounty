@@ -10,7 +10,7 @@ Make sure you have [pipenv installed](https://docs.pipenv.org/install.html). The
 
 Clone this repo
 
-    git clone https://github.com/curanetwork/ico-bounty-api.git
+    git clone https://github.com/curanetwork/cnbounty.git
 
 cd to ico-bounty-api and install the development dependencies
 
@@ -32,5 +32,5 @@ or you can use the `settings` param with runserver:
 
     pipenv run python manage.py runserver --settings=bounty.settings.production
 
-If you need to add some settings that are specific for your machine, rename the file `local_example.py` to `local_settings.py`. This file it's in .gitignore so the changes won't be tracked.
+If you need to add some settings that are specific for your machine, copy the contents of file `local_example.py` to new file `local_settings.py`. This file it's in .gitignore so the changes won't be tracked.
 
