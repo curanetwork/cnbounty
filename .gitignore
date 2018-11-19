@@ -5,6 +5,7 @@
 
 ## Project
 local_settings.py
+migrations
 
 ## SQLite3
 *.sqlite3
