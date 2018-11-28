@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'compressor',
     'rest_framework',
     'django_admin_json_editor',
+    'django_extensions',
     'djoser',
     'corsheaders',
 
@@ -60,6 +61,8 @@ AUTH_USER_MODEL = "base.User"
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication'
     ),
 }
 

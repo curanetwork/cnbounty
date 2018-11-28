@@ -14,7 +14,7 @@ router.register(r'reports', views.ReportViewSet, 'reports')
 
 
 urlpatterns = [
-	path('auth/', include('djoser.urls')),
-	path('auth/', include('djoser.urls.jwt')),
-	path('', include(router.urls))
+	path('', include(router.urls)),
+	path('auth', include('djoser.urls')),
+	path('auth', include('djoser.urls.jwt'))
 ]

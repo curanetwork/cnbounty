@@ -66,7 +66,6 @@ class BountySerializer(serializers.ModelSerializer):
 
 class HuntSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-    bounty = BountySerializer()
     num_of_stakes = serializers.SerializerMethodField() 
 
     def get_num_of_stakes(self, obj):
@@ -79,4 +78,3 @@ class HuntSerializer(serializers.ModelSerializer):
         model = Hunt
         fields = ('id', 'user', 'bounty', 'num_of_stakes', 'details', 'modified',
             'created')
-        depth = 1

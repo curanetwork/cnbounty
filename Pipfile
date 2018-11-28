@@ -15,6 +15,7 @@ djangorestframework-jwt = "*"
 voluptuous = "*"
 django-admin-json-editor = "*"
 django-cors-headers = "*"
+django-extensions = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"

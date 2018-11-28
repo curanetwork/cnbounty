@@ -2,14 +2,15 @@
 
 from django.db import models
 from django.conf import settings
-from django.contrib.postgres.fields import JSONField
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser, PermissionsMixin)
 from django.core.mail import send_mail
 from django.utils.text import slugify
+from django_extensions.db.fields.json import JSONField
+from django_extensions.db.models import TimeStampedModel
 
 
-class Bounty(models.Model):
+class Bounty(TimeStampedModel):
     name = models.CharField(max_length=100)
     percent_share = models.FloatField()
     slug = models.SlugField(unique=True)
@@ -20,8 +21,6 @@ class Bounty(models.Model):
     end = models.DateTimeField()
     signup_form = JSONField()
     report_form = JSONField()
-    modified = models.DateTimeField(auto_now=True)
-    created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name_plural = "Bounties"
@@ -34,14 +33,12 @@ class Bounty(models.Model):
         super(Bounty, self).save(*args, **kwargs)
 
 
-class Hunt(models.Model):
+class Hunt(TimeStampedModel):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, related_name='hunts', on_delete=models.CASCADE)
     bounty = models.ForeignKey(
         Bounty, related_name='hunts', on_delete=models.CASCADE)
     details = JSONField()
-    modified = models.DateTimeField(auto_now=True)
-    created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         unique_together = ('user', 'bounty')
@@ -50,7 +47,7 @@ class Hunt(models.Model):
         return self.user.email
 
 
-class Report(models.Model):
+class Report(TimeStampedModel):
     STATUS = (
         ('approved', 'approved'),
         ('declined', 'declined'),
@@ -61,8 +58,6 @@ class Report(models.Model):
     details = JSONField()
     num_of_stakes = models.PositiveIntegerField(default=0)
     status = models.CharField(max_length=20, choices=STATUS, default='pending')
-    modified = models.DateTimeField(auto_now=True)
-    created = models.DateTimeField(auto_now_add=True)
 
 
 class UserManager(BaseUserManager):

@@ -7,10 +7,11 @@ from django.contrib import admin
 
 
 urlpatterns = [
-    path('', include('base.urls')),
+    path('api/', include('base.urls')),
 
     # Admin
-    path('admin/', admin.site.urls),
+    path('api/admin/', admin.site.urls),
+    path('api/api-auth/', include('rest_framework.urls'))
 ]
 
 if settings.DEBUG:
