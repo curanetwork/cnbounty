@@ -7,13 +7,14 @@ from django.contrib.auth.models import (
 from django.core.mail import send_mail
 from django.utils.text import slugify
 from django_extensions.db.fields.json import JSONField
+from django_extensions.db.fields import AutoSlugField
 from django_extensions.db.models import TimeStampedModel
 
 
 class Bounty(TimeStampedModel):
     name = models.CharField(max_length=100)
     percent_share = models.FloatField()
-    slug = models.SlugField(unique=True)
+    slug = AutoSlugField(populate_from=['name',])
     icon = models.CharField(max_length=50, default='fa-gift')
     intro = models.CharField(max_length=60)
     description = models.TextField()
